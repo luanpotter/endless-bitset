@@ -6,7 +6,7 @@ const MAX = bigInt(2).pow(32);
 const log = (a, b) => {
 	let count = 0;
 	while (a.gt(b)) {
-		a = a.div(b);
+		a = a.divide(b);
 		count++;
 	}
 	return count;
@@ -17,13 +17,13 @@ const normalize = n => typeof n === 'number' ? bigInt(n) : n;
 const EndlessBitSet = class {
 	constructor(length) {
 		this.length = normalize(length);
-		this.depth = log(length, MAX);
+		this.depth = log(this.length, MAX);
 		this.buckets = [];
 	}
 
 	getBucket(i) {
 		if (!this.buckets[i]) {
-			this.buckets[i] = this.depth === 1 ? new BitSet(MAX.valueOf()) : new EndlessBitSet(MAX);
+			this.buckets[i] = this.depth === 0 ? new BitSet(MAX.valueOf()) : new EndlessBitSet(this.length.divide(MAX));
 		}
 		return this.buckets[i];
 	}
@@ -31,26 +31,35 @@ const EndlessBitSet = class {
 	set(idxParam) {
 		const idx = normalize(idxParam);
 
-		const i = idx.div(MAX);
+		const i = idx.divide(MAX);
 		const r = idx.mod(MAX);
 
-		getBucket(i).set(r);
+		this.getBucket(i).set(r);
 	}
 
-	nextUnsetBit(idx) {
+	get(idxParam) {
 		const idx = normalize(idxParam);
 
-		const i = idx.div(MAX);
+		const i = idx.divide(MAX);
 		const r = idx.mod(MAX);
 
-		let bucket = getBucket(i);
+		return this.getBucket(i).get(r);
+	}
+
+	nextUnsetBit(idxParam) {
+		const idx = normalize(idxParam);
+
+		const i = idx.divide(MAX);
+		const r = idx.mod(MAX);
+
+		let bucket = this.getBucket(i);
 		let bit = bucket.nextUnsetBit(r);
 		if (bit !== -1) {
 			return bit;
 		}
 
 		while (i < MAX) {
-			bucket = getBucket(++i);
+			bucket = this.getBucket(++i);
 			bit = bucket.nextUnsetBit(0);
 			if (bit !== -1) {
 				return bit;
