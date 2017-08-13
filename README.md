@@ -9,7 +9,14 @@ This is a wrapper around mattkrick's [fast-bitset](https://github.com/mattkrick/
 It uses [big-integer](https://github.com/peterolson/BigInteger.js) to access the higher indexes (but should work with plain old JS numbers for smaller indexes).  
 
 ## Installation
- `npm install endless-bitset --save`
+
+With yarn:
+
+`yarn add endless-bitset`
+
+Or with npm:
+
+`npm install endless-bitset --save`
 
 ## Features and Limitations
 
