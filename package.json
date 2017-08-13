@@ -1,0 +1,13 @@
+{
+  "name": "endless-bitset",
+  "version": "1.0.0",
+  "description": "Endless and fast BitSet implementation",
+  "main": "endless-bitset.js",
+  "repository": "https://github.com/luanpotter/endless-bitset",
+  "author": "Luan Nico",
+  "license": "MIT",
+  "dependencies": {
+    "big-integer": "^1.6.23",
+    "fast-bitset": "^1.3.2"
+  }
+}
