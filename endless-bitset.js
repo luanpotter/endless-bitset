@@ -97,6 +97,16 @@ const EndlessBitSet = class {
 
 		return -1;
 	}
+
+	// WARNING : for testing porpuses only! this will explode your machine if the bitset is too big
+	toArray() {
+		const array = [];
+		for (let i = 0; i < this.length.valueOf(); i++) {
+			array.push(this.get(i));
+		}
+		return array;
+
+	}
 };
 
 module.exports = EndlessBitSet;
